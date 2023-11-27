@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3yefiotblov1"]
+[gd_scene load_steps=14 format=3 uid="uid://c3yefiotblov1"]
 
 [ext_resource type="Texture2D" uid="uid://1r1p77yg1yjr" path="res://Art/Sprout Lands - Sprites - Basic pack/Characters/Free Cow Sprites.png" id="1_j40b3"]
+[ext_resource type="Script" path="res://NPC/COW_script.gd" id="1_ty0bf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7lakd"]
 size = Vector2(18, 8)
@@ -24,7 +25,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_wx2nh"]
 resource_name = "Cow_Walk"
-length = 0.4
+length = 0.8
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -33,7 +34,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [4, 3]
@@ -61,7 +62,31 @@ _data = {
 "RESET": SubResource("Animation_yo2yr")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_eu5bb"]
+animation = &"Cow_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yiics"]
+animation = &"Cow_Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hyhag"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uym4f"]
+reset = false
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3erqt"]
+reset = false
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_80vvp"]
+states/Cow_Idle/node = SubResource("AnimationNodeAnimation_eu5bb")
+states/Cow_Idle/position = Vector2(373, 96)
+states/Cow_Walk/node = SubResource("AnimationNodeAnimation_yiics")
+states/Cow_Walk/position = Vector2(554, 96)
+states/Start/position = Vector2(235, 96)
+transitions = ["Start", "Cow_Idle", SubResource("AnimationNodeStateMachineTransition_hyhag"), "Cow_Idle", "Cow_Walk", SubResource("AnimationNodeStateMachineTransition_uym4f"), "Cow_Walk", "Cow_Idle", SubResource("AnimationNodeStateMachineTransition_3erqt")]
+
 [node name="COW" type="CharacterBody2D"]
+script = ExtResource("1_ty0bf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_j40b3")
@@ -78,4 +103,6 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_80vvp")
 anim_player = NodePath("../AnimationPlayer")
+active = true

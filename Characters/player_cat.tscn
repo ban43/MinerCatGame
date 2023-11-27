@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://b35geccvw4fy1" path="res://Art/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png" id="1_1nsmd"]
 [ext_resource type="Script" path="res://Characters/player_cat.gd" id="1_unxbh"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_at62l"]
-size = Vector2(12, 6.25)
+[sub_resource type="CircleShape2D" id="CircleShape2D_l2sga"]
+radius = 2.0
 
 [sub_resource type="Animation" id="Animation_sfnwy"]
 length = 0.001
@@ -241,8 +241,10 @@ reset = false
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x8qc7"]
+reset = false
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ommfv"]
+reset = false
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_b41ka"]
 states/End/position = Vector2(945, 132)
@@ -250,7 +252,7 @@ states/Start/position = Vector2(292, 100)
 states/idle/node = SubResource("AnimationNodeBlendSpace2D_d15nj")
 states/idle/position = Vector2(446, 100)
 states/walk/node = SubResource("AnimationNodeBlendSpace2D_pvv8v")
-states/walk/position = Vector2(643, 100)
+states/walk/position = Vector2(644, 100)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_n2ram"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_x8qc7"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_ommfv")]
 graph_offset = Vector2(-163, -36)
 
@@ -263,8 +265,9 @@ hframes = 4
 vframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4.875)
-shape = SubResource("RectangleShape2D_at62l")
+position = Vector2(0, 4)
+scale = Vector2(-2.44829, -2.16833)
+shape = SubResource("CircleShape2D_l2sga")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -274,6 +277,5 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_b41ka")
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/idle/blend_position = Vector2(-0.0144, 0.631148)
 parameters/walk/blend_position = Vector2(-0.2528, 0.414754)
