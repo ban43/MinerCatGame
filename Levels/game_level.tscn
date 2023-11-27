@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b73ekunu23x13"]
+[gd_scene load_steps=8 format=3 uid="uid://b73ekunu23x13"]
 
 [ext_resource type="PackedScene" uid="uid://c4gwcbfvrjsr1" path="res://Characters/player_cat.tscn" id="1_e6k3v"]
 [ext_resource type="Texture2D" uid="uid://cdncnio4dney0" path="res://Art/Sprout Lands - Sprites - Basic pack/Tilesets/Hills.png" id="2_r07q2"]
 [ext_resource type="Texture2D" uid="uid://dnc58sw8x4egx" path="res://Art/Sprout Lands - Sprites - Basic pack/Tilesets/Grass.png" id="3_cfdao"]
+[ext_resource type="PackedScene" uid="uid://c3yefiotblov1" path="res://NPC/COW.tscn" id="4_1sw4b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xblfo"]
 texture = ExtResource("2_r07q2")
@@ -387,3 +388,6 @@ layer_2/tile_data = PackedInt32Array(65541, 262144, 4, 131077, 262144, 5, 65542,
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(99, -20)
+
+[node name="COW" parent="." instance=ExtResource("4_1sw4b")]
+position = Vector2(190, 11)
